@@ -8,7 +8,7 @@ set_property(CACHE lwip220_api_mode PROPERTY STRINGS RAW_API SOCKET_API)
 option(lwip220_no_sys_no_timers "Drops support for sys_timeout when NO_SYS==1" ON)
 set(lwip220_socket_mode_thread_prio 2 CACHE STRING "Priority of threads in socket mode")
 option(lwip220_tcp_keepalive "Enable keepalive processing with default interval" OFF)
-set(sgmii_fixed_link 0 CACHE STRING "Enable fixed link for GEM SGMII at 1Gbps")
+set(sgmii_fixed_link 1 CACHE STRING "Enable fixed link for GEM SGMII at 1Gbps")
 set_property(CACHE sgmii_fixed_link PROPERTY STRINGS 0 1)
 
 set(lwip220_n_tx_descriptors 64 CACHE STRING "Number of TX Buffer Descriptors to be used in SDMA mode")
