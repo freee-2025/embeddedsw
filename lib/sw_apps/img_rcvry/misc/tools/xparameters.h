@@ -42,7 +42,7 @@ extern "c" {
 
 /* Platform specific definitions */
 #define PLATFORM_ZYNQMP
-
+#define SGMII_FIXED_LINK
 /* Definitions for sleep timer configuration */
 #define XSLEEP_TIMER_IS_DEFAULT_TIMER
 
