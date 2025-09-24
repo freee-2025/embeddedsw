@@ -63,20 +63,20 @@ int Xbir_WsStart (void)
 	/* Initialize RAM based file system for web pages */
 	Status = Xbir_WsInitFs();
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Can't run webserver as FS init failed\r\n");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " ERROR: Can't run webserver as FS init failed\r\n");
 		goto END;
 	}
 
 	Status = XST_FAILURE;
 	TcpPcb = tcp_new();
 	if (TcpPcb == NULL) {
-		Xbir_Printf(DEBUG_INFO, " Error: Creating PCB. Out of Memory\r\n");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " Error: Creating PCB. Out of Memory\r\n");
 		goto END;
 	}
 
 	Error = tcp_bind(TcpPcb, IP_ADDR_ANY, XBIR_NW_HTTP_PORT);
 	if (Error != ERR_OK) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Unable to bind to port 80: err = %d\r\n",
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " ERROR: Unable to bind to port 80: err = %d\r\n",
 			Error);
 		goto END;
 	}
@@ -86,7 +86,7 @@ int Xbir_WsStart (void)
 
 	TcpPcb = tcp_listen(TcpPcb);
 	if (TcpPcb == NULL) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Out of memory while tcp_listen\r\n");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " ERROR: Out of memory while tcp_listen\r\n");
 		goto END;
 	}
 
