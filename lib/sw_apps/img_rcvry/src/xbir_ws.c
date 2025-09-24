@@ -124,14 +124,14 @@ static int Xbir_WsInitFs (void)
 	if (Result != FR_OK) {
 
 		/* TBD: Do we need to format FAT? What about files */
-		Xbir_Printf(DEBUG_INFO, " ERROR: Failed to mount FAT FS\r\n");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " ERROR: Failed to mount FAT FS\t\d\r\n", Result);
 		goto END;
 	}
 
 	/* Try to open default html file */
 	Result = f_open(&FilObj, "index.htm", FA_READ);
 	if (Result != FR_OK) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Unable to locate index.htm in FS\r\n");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " ERROR: Unable to locate index.htm in FS\t\d\r\n", Result);
 		goto END;
 	}
 
