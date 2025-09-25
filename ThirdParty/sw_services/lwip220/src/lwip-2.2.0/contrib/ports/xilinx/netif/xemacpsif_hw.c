@@ -88,7 +88,7 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 #endif
 
 #ifdef SGMII_FIXED_LINK
-//	XEmacPs_SetOptions(xemacpsp, XEMACPS_SGMII_ENABLE_OPTION);
+	XEmacPs_SetOptions(xemacpsp, XEMACPS_SGMII_ENABLE_OPTION);
 //	status = XEmacPs_ReadReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET);
 //	status &= ~XEMACPS_PCS_CON_AUTO_NEG_MASK;
 //	XEmacPs_WriteReg(xemacps->emacps.Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET, status);
