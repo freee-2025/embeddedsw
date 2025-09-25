@@ -132,6 +132,7 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 	Status = XST_SUCCESS;
 
 END:
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Xbir_NwCfgNetwork End: %08X\n\r", EmacBaseAddr);
 	return Status;
 }
 
