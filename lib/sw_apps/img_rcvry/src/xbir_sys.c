@@ -437,6 +437,7 @@ static int Xbir_KREthInit (void)
 	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU0_OFFSET, 0x00000003U, 0x00000000U);
 
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "XPAR_XIICPS_NUM_INSTANCES is defined\n\r");	
 	Status = Xbir_I2cExpanderReset();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -445,6 +446,7 @@ static int Xbir_KREthInit (void)
 	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
 
 END:
+	Status = XST_SUCCESS;	// always SUCCESS for AOIP debug
 	return Status;
 }
 
