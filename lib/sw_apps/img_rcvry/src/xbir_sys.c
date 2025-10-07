@@ -390,6 +390,8 @@ END:
 static int Xbir_KREthInit (void)
 {
 	int Status = XST_FAILURE;
+	XGpioPs Gpio = {0U};
+	XGpioPs_Config *ConfigPtr;
 
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU ,0x00000002U);
@@ -446,7 +448,34 @@ static int Xbir_KREthInit (void)
 	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
 
 END:
-	Status = XST_SUCCESS;	// always SUCCESS for AOIP debug
+	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
+	if (ConfigPtr == NULL) {
+		Xbir_Printf(DEBUG_INFO, "ERROR: GPIO look up config failed\n\r");
+		goto END;
+	}
+
+	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf(DEBUG_INFO, "ERROR: GPIO config initialize failed\n\r");
+		goto END;
+	}
+
+	/*
+	 * Set the direction for the pin to be output.
+	 */
+	XGpioPs_SetDirectionPin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_OUTPUT_EN);
+
+	/*
+	 * Asserting the active low GPIO, which pushes the PHY into reset,
+	 * wait for 200us and then deasserting the GPIO to bring PHY out of reset
+	 */
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_LOW);
+	usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_HIGH);
+	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
+
+//	Status = XST_SUCCESS;	// always SUCESS for AOIP debug
 	return Status;
 }
 
