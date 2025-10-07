@@ -253,12 +253,15 @@ int Xbir_SysInit (void)
 #if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 	if (strncmp((char *)&SysInfo.BoardPrdName, "SM-",
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "BoardPrdName: SM-: %s\n\r", (char *)&SysInfo.BoardPrdName);
 		Status = Xbir_KVeMMCInit();
 	}
 	else if (strncmp((char *)&SysInfo.BoardPrdName, "SMK",
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
+			Xbir_Printf(DEBUG_PRINT_ALWAYS, "BoardPrdName: SMK: %s\n\r", (char *)&SysInfo.BoardPrdName);
 			Status = XST_SUCCESS;
 	} else {
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "BoardPrdName: other: %s\n\r", (char *)&SysInfo.BoardPrdName);
 		Status = Xbir_SCeMMCInit();
 	}
 #endif
