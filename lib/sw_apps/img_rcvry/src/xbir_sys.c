@@ -289,7 +289,8 @@ static int Xbir_EthInit (void)
 	}
 	else if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
                 "KR", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
-		Status = Xbir_KREthInit();
+//		Status = Xbir_KREthInit();
+		Status = Xbir_SCEthInit();
 	}
 	else if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
                 "KD", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
